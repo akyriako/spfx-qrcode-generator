@@ -1,0 +1,13 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/package-solution.schema.json",
+  "solution": {
+    "name": "qrcode-webpart-client-side-solution",
+    "id": "d494aa78-9715-4aec-8a22-d3b6c348b2ce",
+    "version": "1.0.0.0",
+    "includeClientSideAssets": true,
+    "isDomainIsolated": false
+  },
+  "paths": {
+    "zippedPackage": "solution/qrcode-webpart.sppkg"
+  }
+}
