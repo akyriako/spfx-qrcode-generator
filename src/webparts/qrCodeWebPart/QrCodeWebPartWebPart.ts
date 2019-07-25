@@ -126,8 +126,16 @@ export default class QrCodeWebPartWebPart extends BaseClientSideWebPart<IQrCodeW
             {
               groupName: strings.AppearanceGroupName,
               groupFields: [
-                PropertyPaneTextField('widthInput', {
-                  label: strings.WidthInputFieldLabel
+                // PropertyPaneTextField('widthInput', {
+                //   label: strings.WidthInputFieldLabel
+                // }),
+                PropertyPaneSlider('widthInput',{  
+                  label: strings.WidthInputFieldLabel,  
+                  min:32,  
+                  max:128,  
+                  value:64,  
+                  showValue:true,  
+                  step:16                
                 })
               ]
             }
