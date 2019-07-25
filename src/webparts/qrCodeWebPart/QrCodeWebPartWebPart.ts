@@ -2,7 +2,8 @@ import { Version } from '@microsoft/sp-core-library';
 import { BaseClientSideWebPart } from '@microsoft/sp-webpart-base';
 import {
   IPropertyPaneConfiguration,
-  PropertyPaneTextField
+  PropertyPaneTextField,
+  PropertyPaneDropdown
 } from '@microsoft/sp-property-pane';
 import { escape } from '@microsoft/sp-lodash-subset';
 
@@ -14,7 +15,7 @@ import { QRCode ,ErrorCorrectLevel, QRNumber, QRAlphaNum, QR8BitByte, QRKanji } 
 export interface IQrCodeWebPartWebPartProps {
   textInput: string;
   widthInput: number;
-  // heightInput: number;
+  errorCorrectionLevelInput: string;
 }
 
 export default class QrCodeWebPartWebPart extends BaseClientSideWebPart<IQrCodeWebPartWebPartProps> {
@@ -22,6 +23,16 @@ export default class QrCodeWebPartWebPart extends BaseClientSideWebPart<IQrCodeW
   public render(): void 
   {
     var input: string;
+    var errorCorrectionLevel: ErrorCorrectLevel;
+    
+    if (this.properties.errorCorrectionLevelInput === undefined || this.properties.errorCorrectionLevelInput.length === 0)
+    {
+      errorCorrectionLevel = ErrorCorrectLevel.M;
+    }
+    else 
+    {
+      errorCorrectionLevel = <ErrorCorrectLevel>ErrorCorrectLevel[this.properties.errorCorrectionLevelInput];
+    }
 
     if (this.properties.textInput === undefined || this.properties.textInput.length === 0)
     {
@@ -33,7 +44,7 @@ export default class QrCodeWebPartWebPart extends BaseClientSideWebPart<IQrCodeW
     }
 
     var qrCode = new QRCode();
-    qrCode.setErrorCorrectLevel(ErrorCorrectLevel.M);
+    qrCode.setErrorCorrectLevel(errorCorrectionLevel);
     qrCode.setTypeNumber(4);
     qrCode.addData(escape(input));
     qrCode.make();
@@ -79,6 +90,16 @@ export default class QrCodeWebPartWebPart extends BaseClientSideWebPart<IQrCodeW
               groupFields: [
                 PropertyPaneTextField('textInput', {
                   label: strings.TextInputFieldLabel
+                }),
+                PropertyPaneDropdown('errorCorrectionLevelInput', { 
+                  label: strings.ErrorCorrectionLevelFieldLabel,
+                  options: [ 
+                    { key: 'L', text: 'L(7%)' }, 
+                    { key: 'M', text: 'M(15%)' }, 
+                    { key: 'Q', text: 'Q(25%)' },
+                    { key: 'H', text: 'H(30%)' } 
+                  ],
+                  selectedKey: 'M',
                 })
               ]
             },

@@ -4,7 +4,7 @@ define([], function() {
     "BasicGroupName": "Settings",
     "TextInputFieldLabel": "Input text (leave empty for page URL)",
     "AppearanceGroupName": "Appearance",
-    // "HeightInputFieldLabel": "Dimensions (px)"
-    "WidthInputFieldLabel": "Dimensions (px)"
+    "WidthInputFieldLabel": "Dimensions (px)",
+    "ErrorCorrectionLevelFieldLabel": "Error Correction Level"
   }
 });

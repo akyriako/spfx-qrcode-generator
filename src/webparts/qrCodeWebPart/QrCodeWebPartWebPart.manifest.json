@@ -22,7 +22,8 @@
     "officeFabricIconFontName": "QRCode",
     "properties": {
       "textInput": "Example",
-      "widthInput": 64
+      "widthInput": 64,
+      "errorCorrectionLevelInput": "M"
     }
   }]
 }
