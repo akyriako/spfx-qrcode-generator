@@ -4,8 +4,8 @@ declare interface IQrCodeWebPartWebPartStrings {
   TextInputFieldLabel: string;
   AppearanceGroupName: string;
   WidthInputFieldLabel: string;
-  // HeightInputFieldLabel: string;
   ErrorCorrectionLevelFieldLabel: string
+  TypeNumberFieldLabel: string
 }
 
 declare module 'QrCodeWebPartWebPartStrings' {

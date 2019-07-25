@@ -23,7 +23,8 @@
     "properties": {
       "textInput": "Example",
       "widthInput": 64,
-      "errorCorrectionLevelInput": "M"
+      "errorCorrectionLevelInput": "M",
+      "typeNumberInput": 4
     }
   }]
 }

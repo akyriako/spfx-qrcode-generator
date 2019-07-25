@@ -3,7 +3,8 @@ import { BaseClientSideWebPart } from '@microsoft/sp-webpart-base';
 import {
   IPropertyPaneConfiguration,
   PropertyPaneTextField,
-  PropertyPaneDropdown
+  PropertyPaneDropdown,
+  PropertyPaneSlider
 } from '@microsoft/sp-property-pane';
 import { escape } from '@microsoft/sp-lodash-subset';
 
@@ -16,6 +17,7 @@ export interface IQrCodeWebPartWebPartProps {
   textInput: string;
   widthInput: number;
   errorCorrectionLevelInput: string;
+  typeNumberInput: number;
 }
 
 export default class QrCodeWebPartWebPart extends BaseClientSideWebPart<IQrCodeWebPartWebPartProps> {
@@ -24,7 +26,8 @@ export default class QrCodeWebPartWebPart extends BaseClientSideWebPart<IQrCodeW
   {
     var input: string;
     var errorCorrectionLevel: ErrorCorrectLevel;
-    
+    var typeNumber: number;
+
     if (this.properties.errorCorrectionLevelInput === undefined || this.properties.errorCorrectionLevelInput.length === 0)
     {
       errorCorrectionLevel = ErrorCorrectLevel.M;
@@ -32,6 +35,15 @@ export default class QrCodeWebPartWebPart extends BaseClientSideWebPart<IQrCodeW
     else 
     {
       errorCorrectionLevel = <ErrorCorrectLevel>ErrorCorrectLevel[this.properties.errorCorrectionLevelInput];
+    }
+
+    if (this.properties.typeNumberInput === undefined || this.properties.typeNumberInput === 0)
+    {
+      typeNumber = 4;
+    }
+    else 
+    {
+      typeNumber = Number(this.properties.typeNumberInput);
     }
 
     if (this.properties.textInput === undefined || this.properties.textInput.length === 0)
@@ -45,7 +57,7 @@ export default class QrCodeWebPartWebPart extends BaseClientSideWebPart<IQrCodeW
 
     var qrCode = new QRCode();
     qrCode.setErrorCorrectLevel(errorCorrectionLevel);
-    qrCode.setTypeNumber(4);
+    qrCode.setTypeNumber(typeNumber);
     qrCode.addData(escape(input));
     qrCode.make();
     let base64ImageString = qrCode.toDataURL();
@@ -88,8 +100,13 @@ export default class QrCodeWebPartWebPart extends BaseClientSideWebPart<IQrCodeW
             {
               groupName: strings.BasicGroupName,
               groupFields: [
-                PropertyPaneTextField('textInput', {
-                  label: strings.TextInputFieldLabel
+                PropertyPaneSlider('typeNumberInput',{  
+                  label: strings.TypeNumberFieldLabel,  
+                  min:1,  
+                  max:40,  
+                  value:4,  
+                  showValue:true,  
+                  step:1                
                 }),
                 PropertyPaneDropdown('errorCorrectionLevelInput', { 
                   label: strings.ErrorCorrectionLevelFieldLabel,
@@ -100,7 +117,10 @@ export default class QrCodeWebPartWebPart extends BaseClientSideWebPart<IQrCodeW
                     { key: 'H', text: 'H(30%)' } 
                   ],
                   selectedKey: 'M',
-                })
+                }),
+                PropertyPaneTextField('textInput', {
+                  label: strings.TextInputFieldLabel
+                }),
               ]
             },
             {

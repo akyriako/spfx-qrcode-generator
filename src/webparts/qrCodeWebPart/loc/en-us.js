@@ -5,6 +5,7 @@ define([], function() {
     "TextInputFieldLabel": "Input text (leave empty for page URL)",
     "AppearanceGroupName": "Appearance",
     "WidthInputFieldLabel": "Dimensions (px)",
-    "ErrorCorrectionLevelFieldLabel": "Error Correction Level"
+    "ErrorCorrectionLevelFieldLabel": "Error Correction Level",
+    "TypeNumberFieldLabel": "Type"
   }
 });
